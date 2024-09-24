@@ -1,0 +1,33 @@
+# Node.js specific
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log*
+
+# dotenv environment variables
+.env
+
+# Logs
+logs/
+*.log
+*.log.*
+log/
+
+# SQLite database
+database.sqlite
+database.sqlite3
+
+# Local development files
+.DS_Store
+Thumbs.db
+
+# Optional: macOS specific
+*.DS_Store
+
+# Ignore Auth Data from whatsapp-web.js
+.session/
+
+.wwebjs_auth/
+.wwebjs_cache/
