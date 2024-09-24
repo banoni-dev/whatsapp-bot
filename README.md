@@ -16,14 +16,12 @@ This WhatsApp bot allows you to manage phone numbers and message templates and s
 
  ```
 !add_number <number>
-
  ```
 
 Adds a phone number to the database.
 
  ```
 !add_template <template>
-
  ```
 
 Adds a message template to the database.
@@ -32,7 +30,6 @@ Adds a message template to the database.
 
  ```
 !send_template <template_id> <number>
-
  ```
 
 Sends a specific message template to the provided phone number.
@@ -41,7 +38,6 @@ Sends a specific message template to the provided phone number.
 
  ```
 !send_message <number> <message>
-
  ```
 
 Sends a custom message to the provided phone number.
@@ -50,7 +46,6 @@ Sends a custom message to the provided phone number.
 
  ```
 !send_all <message>
-
  ```
 
 Sends the provided message to all stored phone numbers.
@@ -59,7 +54,6 @@ Sends the provided message to all stored phone numbers.
 
  ```
 !get_numbers
-
  ```
 
 Retrieves a list of all stored phone numbers.
@@ -68,7 +62,6 @@ Retrieves a list of all stored phone numbers.
 
  ```
 !get_templates
-
  ```
 
 Retrieves a list of all stored message templates with their IDs.
@@ -77,7 +70,6 @@ Retrieves a list of all stored message templates with their IDs.
 
  ```
 !delete_number <number>
-
  ```
 
 Deletes the specified phone number from the database.
@@ -86,7 +78,6 @@ Deletes the specified phone number from the database.
 
  ```
 !clear_numbers
-
  ```
 
 Deletes all stored phone numbers.
