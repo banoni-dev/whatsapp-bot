@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "whatsapp-bot",
+  "builds": [
+    {
+      "src": "src/bot.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "src/bot.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
