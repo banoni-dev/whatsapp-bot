@@ -151,11 +151,15 @@ const sendTemplate = (msg, client, args) => {
 // Send a custom message to a specific number
 const sendCustomMessage = (msg, client, args) => {
   const [number, ...messageParts] = args;
-  const message = messageParts.join(" ");
+  let message = messageParts.join(" ");
+
   if (!number || !message) {
     msg.reply("Usage: !send_message <number> <message>");
     return;
   }
+
+  // Replace \n with actual newline characters
+  message = message.replace(/\\n/g, "\n");
 
   client
     .sendMessage(`${number}@c.us`, message)
