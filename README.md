@@ -94,9 +94,8 @@ Deletes all stored phone numbers.
  ```
  Deletes all stored message templates.
 
-12. **Ping**:  
+12. **SEND**:  
  ```
- !ping
+ !send <template_id> <<model>> <link> <number>
  ```
- Responds with "pong" to verify if the bot is running.
-
+ Responds with a message template with the provided model and link to the provided phone number.
