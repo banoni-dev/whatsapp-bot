@@ -28,6 +28,3 @@ Thumbs.db
 
 # Ignore Auth Data from whatsapp-web.js
 .session/
-
-.wwebjs_auth/
-.wwebjs_cache/
