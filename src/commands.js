@@ -37,13 +37,59 @@ const handleCommand = (msg, client) => {
     case "!clear_templates":
       clearTemplates(msg);
       break;
-    case "!ping":
-      msg.reply("pong");
+    case "!send":
+      sendAlertMessage(msg, client, args);
       break;
     default:
       msg.reply("Unknown command.");
       break;
   }
+};
+
+const sendAlertMessage = (msg, client, args) => {
+  const [templateId, ...rest] = args;
+
+  // Extract the model enclosed in < >
+  const modelMatch = rest.join(" ").match(/<([^>]+)>/);
+  if (!modelMatch) {
+    msg.reply("Please provide a valid model enclosed in < >.");
+    return;
+  }
+  const model = modelMatch[1]; // Extracted model (without the brackets)
+
+  // Remove the model from the arguments to get link and number
+  const remainingArgs = rest
+    .join(" ")
+    .replace(modelMatch[0], "")
+    .trim()
+    .split(" ");
+  const [link, number] = remainingArgs;
+
+  if (!templateId || !model || !link || !number) {
+    msg.reply("Usage: !send <template_id> <model> <link> <number>");
+    return;
+  }
+
+  db.get(
+    "SELECT template FROM message_templates WHERE id = ?",
+    [templateId],
+    (err, row) => {
+      if (err || !row) {
+        msg.reply("Template not found.");
+      } else {
+        // Replace placeholders with actual model and link
+        let message = row.template
+          .replace("<model>", model)
+          .replace("<link>", link)
+          .replace(/\\n/g, "\n"); // Replace \n with actual newline
+
+        client
+          .sendMessage(`${number}@c.us`, message)
+          .then(() => msg.reply(`Alert message sent to ${number}`))
+          .catch(() => msg.reply("Failed to send message."));
+      }
+    },
+  );
 };
 
 // Add a phone number
@@ -94,7 +140,7 @@ const sendTemplate = (msg, client, args) => {
         msg.reply("Template not found.");
       } else {
         client
-          .sendMessage(number, row.template)
+          .sendMessage(`${number}@c.us`, row.template)
           .then(() => msg.reply(`Message sent to ${number}`))
           .catch(() => msg.reply("Failed to send message."));
       }
@@ -112,7 +158,7 @@ const sendCustomMessage = (msg, client, args) => {
   }
 
   client
-    .sendMessage(number, message)
+    .sendMessage(`${number}@c.us`, message)
     .then(() => msg.reply(`Message sent to ${number}`))
     .catch(() => msg.reply("Failed to send message."));
 };
@@ -133,7 +179,7 @@ const sendMessageToAll = (msg, client, args) => {
 
     rows.forEach(({ number }) => {
       client
-        .sendMessage(number, message)
+        .sendMessage(`${number}@c.us`, message)
         .catch(() => msg.reply(`Failed to send message to ${number}`));
     });
     msg.reply("Messages sent to all numbers.");
